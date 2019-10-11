@@ -1,0 +1,20 @@
+	double **adj;
+	adj=malloc(n*sizeof(double *));
+	for (i=0; i<n; i++){
+		adj[i]=malloc(n*sizeof(double));
+	}
+	Scanfadj(n,adj);
+	
+	FILE *file;
+	file=fopen("edgelengh.txt","w");
+	
+	fprintf(file,"edgelength[998][998] = {\n");
+	for (i=0; i<n; i++){
+		fprintf(file,"{");
+		for (j=0; j<n; j++){
+			fprintf(file,"%.14lf,",adj[i][j]);
+		}
+		fprintf(file,"},\n");
+	}
+	fprintf(file,"}");
+	fclose(file);
