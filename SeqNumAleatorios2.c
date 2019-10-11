@@ -3,13 +3,13 @@
 #include <math.h>
 #include <stdbool.h> 
 
-float ran1(long *idum);
+double ran1(long *idum);
 
 int main(void){
   
   long int semente;
   int i, N;
-  float aleatorio, x;
+  double aleatorio, x;
   FILE *arq;
   
   
@@ -22,16 +22,16 @@ int main(void){
   printf("Digite a quantidade de números que deseja: ");
   scanf("%d",&N);
   printf("Digite o máximo valor a ser gerado: ");
-  scanf("%f",&x);
+  scanf("%lf",&x);
   printf("Digite a semente: ");
   scanf("%ld",&semente);
   
   for (i=0; i<N; i++){
     aleatorio = ran1(&semente);
     aleatorio = (aleatorio - 0.5)*2.0*x;  //Ele gera de [-1, 1) e multiplica pelo numero que queres caso x=100 fica [-100, 100)
-    printf("A semente é: %ld\n",semente);
-    printf("%f\n", aleatorio);  
-    fprintf(arq, "%f\n", aleatorio); 
+    //printf("A semente é: %ld\n",semente);
+    printf("%lf\n", aleatorio);  
+    fprintf(arq, "%lf\n", aleatorio); 
   }  
   
   fclose(arq);
@@ -57,12 +57,12 @@ int main(void){
 #define EPS 1.2e-7
 #define RNMX (1.0-EPS)
 
-float ran1(long *idum) {
+double ran1(long *idum) {
   int j;
   long k;
   static long iy=0;
   static long iv[NTAB];
-  float temp;
+  double temp;
    
   if (*idum <= 0 || !iy) {
     if (-(*idum) < 1) *idum=1;

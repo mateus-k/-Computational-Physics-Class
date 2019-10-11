@@ -1,39 +1,52 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <math.h>
-#include <stdbool.h> 
+#include <stdio.h>
 
 float ran1(long *idum);
+float monteCarlo(long long int n, float r);
 
 int main(void){
+
+   long long int n;
+   float r, pi;
+   
+   r = 1.0;
+   n = 1000000000;
   
-  long int semente;
-  int i, N;
-  float aleatorio;
-  //  FILE *arq;
-  
-  
-  printf("Digite a quantidade de números que deseja: ");
-  scanf("%d",&N);
-  //Digite a semente (número negativo):
-	semente= -45;
-  
-  printf("A semente é: %ld\n",semente);
-  for (i=0; i<N; i++){
-    aleatorio = ran1(&semente);
-    printf("%f\n", aleatorio);  
-  }  
-  
+   pi = 4.0 * r * monteCarlo(n, r);
+   
+   printf("O valor de pi é %.14f\n", pi);
+   
   return 0;
+
 }
 
+float monteCarlo(long long int n, float r){
+  
+  int i;
+  long int semente;
+  double ok;
+  float media, x, y, fx;
+  
+  semente = -38292; ok=0;
+  
+  for (i=0; i<n; i++){
+    x = ran1(&semente) * r;
+    y = ran1(&semente) * r;
+    fx =sqrt(r*r - x*x);
+    if (y<= fx){
+      ok += 1.0;
+    }
+  }
+  
+  media = ok / n;
+  
+  return media;
+}
 
-
-
-
-//------------------------------------------------------------------//
-
-//gerador de números aleatórios//
+//=========================================
+//gerador de números aleatórios.
 
 #define IA 16807
 #define IM 2147483647
